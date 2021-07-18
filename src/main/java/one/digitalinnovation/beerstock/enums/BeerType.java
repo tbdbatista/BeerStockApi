@@ -19,6 +19,6 @@ public enum BeerType {
     QUADRUPEL("Quadrupel"),
     MALZBIER("Malzbier");
 
-    private final String beerStyle;
+    private final String description;
 
 }

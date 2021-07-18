@@ -9,6 +9,6 @@ public interface BeerRepository extends JpaRepository<Beer, Long> {
 
     Optional<Beer> findByName(String name);
 
-    Optional<Beer> findByType(String name); // still to implement
+    // Optional<Beer> findByType(String name); // still to implement
 
 }

@@ -1,6 +1,5 @@
 package one.digitalinnovation.beerstock.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,9 +32,6 @@ public class Beer {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BeerType type;
-
-
-
 
 
 
