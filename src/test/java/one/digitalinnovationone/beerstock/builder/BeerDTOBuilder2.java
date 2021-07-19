@@ -5,27 +5,27 @@ import one.digitalinnovation.beerstock.dto.BeerDTO;
 import one.digitalinnovation.beerstock.enums.BeerType;
 
 @Builder
-public class BeerDTOBuilder {
+public class BeerDTOBuilder2 {
 
     @Builder.Default
     private Long id = 1L;
 
     @Builder.Default
-    private String name = "Skol";
+    private String name = "Heineken";
 
     @Builder.Default
-    private String brand = "Ambev";
+    private String brand = "FEMSA";
 
     @Builder.Default
-    private int maximumAmout = 50;
+    private int maximumAmout = 51;
 
     @Builder.Default
-    private int quantity = 12;
+    private int quantity = 13;
 
     @Builder.Default
-    private BeerType type = BeerType.AMERICANLAGER;
+    private BeerType type = BeerType.IPA;
 
-    public BeerDTO toBeerDTO() {
+    public BeerDTO toBeerDTO2() {
         return new BeerDTO(
                 id,
                 name,
