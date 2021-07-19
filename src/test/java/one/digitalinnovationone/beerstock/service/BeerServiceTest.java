@@ -7,6 +7,8 @@ import one.digitalinnovation.beerstock.mapper.BeerMapper;
 import one.digitalinnovation.beerstock.repository.BeerRepository;
 import one.digitalinnovation.beerstock.service.BeerService;
 import one.digitalinnovationone.beerstock.builder.BeerDTOBuilder;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,6 +17,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -42,8 +46,12 @@ public class BeerServiceTest {
 
         BeerDTO createdBeerDTO = beerService.createBeer(beerDTO);
 
-        assertEquals(beerDTO.getId(), createdBeerDTO.getId());
-        assertEquals(beerDTO.getName(), createdBeerDTO.getName());
+//        assertEquals(beerDTO.getId(), createdBeerDTO.getId());
+//        assertEquals(beerDTO.getName(), createdBeerDTO.getName());
+
+        assertThat(createdBeerDTO.getId(), is(equalTo(beerDTO.getId())));
+        assertThat(createdBeerDTO.getName(), is(equalTo(beerDTO.getName())));
+        assertThat(createdBeerDTO.getQuantity(), is(equalTo(beerDTO.getQuantity())));
 
     }
 }
