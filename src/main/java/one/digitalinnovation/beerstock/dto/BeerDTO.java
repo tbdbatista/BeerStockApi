@@ -31,7 +31,7 @@ public class BeerDTO {
 
     @NotNull
     @Max(500)
-    private Integer max;
+    private Integer maximumAmount;
 
     @NotNull
     @Max(100)
