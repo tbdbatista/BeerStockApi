@@ -17,7 +17,7 @@ public class BeerDTOBuilder2 {
     private String brand = "FEMSA";
 
     @Builder.Default
-    private int maximumAmout = 51;
+    private int max = 51;
 
     @Builder.Default
     private int quantity = 13;
@@ -30,7 +30,7 @@ public class BeerDTOBuilder2 {
                 id,
                 name,
                 brand,
-                maximumAmout,
+                max,
                 quantity,
                 type);
     }

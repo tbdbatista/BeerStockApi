@@ -24,7 +24,7 @@ public class Beer {
     private String brand;
 
     @Column(nullable = false)
-    private int maximumAmount;
+    private int max;
 
     @Column(nullable = false)
     private int quantity;
