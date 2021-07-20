@@ -84,31 +84,6 @@ public class BeerControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test // test failed
-    void whenGETIsCalledWithValidNameThenOkStatusIsReturned() throws Exception {
-        BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
-
-        when(beerService.findByName(beerDTO.getName())).thenReturn(beerDTO);
-
-        mockMvc.perform(MockMvcRequestBuilders.get(BEER_API_URL_PATH + "/" + beerDTO.getName())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(beerDTO.getName())))
-                .andExpect(jsonPath("$.brand", is(beerDTO.getBrand())))
-                .andExpect(jsonPath("$.type", is(beerDTO.getType().toString())));
-    }
-
-    @Test // test failed
-    void whenGETIsCalledWithoutRegisteredNameThenNotFoundStatusIsReturned() throws Exception {
-        BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
-
-        when(beerService.findByName(beerDTO.getName())).thenThrow(BeerNotFoundException.class);
-
-        mockMvc.perform(MockMvcRequestBuilders.get(BEER_API_URL_PATH + "/" + beerDTO.getName())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
-
     @Test
     void whenGETListWithBeersIsCalledThenOkStatusIsReturned() throws Exception {
         BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
@@ -134,15 +109,6 @@ public class BeerControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-    @Test // test failed
-    void whenDELETEIsCalledWithInvalidIdThenNotFoundStatusIsReturned() throws Exception {
-        doThrow(BeerNotFoundException.class).when(beerService).deleteById(INVALID_BEER_ID);
-
-        mockMvc.perform(MockMvcRequestBuilders.delete(BEER_API_URL_PATH + "/" + INVALID_BEER_ID)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
-
     @Test
     void whenPATCHIsCalledToIncrementDiscountThenOKstatusIsReturned() throws Exception {
         QuantityDTO quantityDTO = QuantityDTO.builder()
@@ -161,5 +127,39 @@ public class BeerControllerTest {
                 .andExpect(jsonPath("$.brand", is(beerDTO.getBrand())))
                 .andExpect(jsonPath("$.type", is(beerDTO.getType().toString())))
                 .andExpect(jsonPath("$.quantity", is(beerDTO.getQuantity())));
+    }
+
+    @Test // test failed
+    void whenGETIsCalledWithValidNameThenOkStatusIsReturned() throws Exception {
+        BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
+
+        when(beerService.findByName(beerDTO.getName())).thenReturn(beerDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BEER_API_URL_PATH + "/" + beerDTO.getName())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(beerDTO.getName())))
+                .andExpect(jsonPath("$.brand", is(beerDTO.getBrand())))
+                .andExpect(jsonPath("$.type", is(beerDTO.getType().toString())));
+    }
+
+    @Test // test failed
+    void whenGETIsCalledWithoutRegisteredNameThenNotFoundStatusIsReturned() throws Exception {
+        BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
+
+        when(beerService.findByName(beerDTO.getName())).thenThrow(BeerNotFoundException.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BEER_API_URL_PATH + "/" + beerDTO.getName())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test // test failed
+    void whenDELETEIsCalledWithInvalidIdThenNotFoundStatusIsReturned() throws Exception {
+        doThrow(BeerNotFoundException.class).when(beerService).deleteById(INVALID_BEER_ID);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete(BEER_API_URL_PATH + "/" + INVALID_BEER_ID)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
