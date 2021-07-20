@@ -16,11 +16,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -80,7 +81,7 @@ public class BeerServiceTest {
 
     }
 
-    @Test // not passed
+    @Test // test failed
     void whenValidBeerNameIsGivenThenReturnBeer() throws BeerNotFoundException {
 
         BeerDTO expectedFoundBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
@@ -90,7 +91,7 @@ public class BeerServiceTest {
 
         BeerDTO foundBeerDTO = beerService.findByName(expectedFoundBeerDTO.getName());
 
-        assertThat(foundBeerDTO, is(equalTo(expectedFoundBeerDTO)));
+        MatcherAssert.assertThat(foundBeerDTO, is(equalTo(expectedFoundBeerDTO)));
 
     }
 
@@ -103,5 +104,27 @@ public class BeerServiceTest {
 
         assertThrows(BeerNotFoundException.class, () -> beerService.findByName(expectedFoundBeerDTO.getName()));
 
+    }
+
+    @Test // test failed
+    void whenListBeerIsCalledThenReturnAListOfBeers() {
+        BeerDTO expectedFoundBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
+        Beer expectedFoundBeer = beerMapper.toModel(expectedFoundBeerDTO);
+
+        when(beerRepository.findAll()).thenReturn(Collections.singletonList(expectedFoundBeer));
+
+        List<BeerDTO> foundListBeersDTO = beerService.listAll();
+
+        assertThat(foundListBeersDTO, is(not(empty())));
+        MatcherAssert.assertThat(foundListBeersDTO.get(0), is(equalTo(expectedFoundBeerDTO)));
+    }
+
+    @Test
+    void whenListBeerIsCalledThenReturnAnEmptyListOfBeers() {
+        when(beerRepository.findAll()).thenReturn(Collections.EMPTY_LIST);
+
+        List<BeerDTO> foundListBeersDTO = beerService.listAll();
+
+        assertThat(foundListBeersDTO, is(empty()));
     }
 }

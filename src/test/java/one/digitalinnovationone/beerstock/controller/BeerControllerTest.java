@@ -78,7 +78,7 @@ public class BeerControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test // not passed
+    @Test // test failed
     void whenGETIsCalledWithValidNameThenOkStatusIsReturned() throws Exception {
         BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
 
@@ -92,8 +92,9 @@ public class BeerControllerTest {
                 .andExpect(jsonPath("$.type", Is.is(beerDTO.getType().toString())));
     }
 
-    @Test // not passed
+    @Test // test failed
     void whenGETIsCalledWithoutRegisteredNameThenNotFoundStatusIsReturned() throws Exception {
+
         BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
 
         when(beerService.findByName(beerDTO.getName())).thenThrow(BeerNotFoundException.class);
