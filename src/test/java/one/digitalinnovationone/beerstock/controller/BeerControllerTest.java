@@ -129,7 +129,7 @@ public class BeerControllerTest {
                 .andExpect(jsonPath("$.quantity", is(beerDTO.getQuantity())));
     }
 
-    @Test // test failed
+    @Test // test succeeds
     void whenGETIsCalledWithValidNameThenOkStatusIsReturned() throws Exception {
         BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
 
@@ -143,7 +143,7 @@ public class BeerControllerTest {
                 .andExpect(jsonPath("$.type", is(beerDTO.getType().toString())));
     }
 
-    @Test // test failed
+    @Test // test succeeds
     void whenGETIsCalledWithoutRegisteredNameThenNotFoundStatusIsReturned() throws Exception {
         BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
 
@@ -154,7 +154,7 @@ public class BeerControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Test // test failed
+    @Test // test succeeds
     void whenDELETEIsCalledWithInvalidIdThenNotFoundStatusIsReturned() throws Exception {
         doThrow(BeerNotFoundException.class).when(beerService).deleteById(INVALID_BEER_ID);
 

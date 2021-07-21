@@ -28,7 +28,7 @@ public class BeerController implements BeerControllerDocs{
         return beerService.createBeer(beerDTO);
     }
 
-    @GetMapping("/frame")
+    @GetMapping("/{name}")
     public BeerDTO findByName(@PathVariable String name) throws BeerNotFoundException {
         return beerService.findByName(name);
     }
